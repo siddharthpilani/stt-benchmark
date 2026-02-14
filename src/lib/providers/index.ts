@@ -6,6 +6,7 @@ import { transcribeWithSoniox } from "./soniox";
 import { transcribeWithSpeechmatics } from "./speechmatics";
 import { transcribeWithElevenLabs } from "./elevenlabs";
 import { transcribeWithSarvam } from "./sarvam";
+import { transcribeWithParrot } from "./parrot";
 
 type TranscribeFn = (
   audioBuffer: Buffer,
@@ -21,6 +22,7 @@ const providerRegistry: Record<ProviderName, TranscribeFn> = {
   speechmatics: transcribeWithSpeechmatics,
   elevenlabs: transcribeWithElevenLabs,
   sarvam: transcribeWithSarvam,
+  parrot: transcribeWithParrot,
 };
 
 export async function transcribeWithProvider(

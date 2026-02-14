@@ -69,7 +69,7 @@ export default function Home() {
           STT Benchmark
         </h1>
         <p className="mt-3 text-gray-500 text-lg">
-          Compare 7 Speech-to-Text providers side by side.
+          Compare 8 Speech-to-Text providers side by side.
           <br />
           Upload audio, select a language, and see who wins.
         </p>
