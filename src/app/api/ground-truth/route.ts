@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
                   },
                 },
                 {
-                  text: `Transcribe this audio exactly as spoken in ${language}. Output ONLY the transcript text, nothing else. No labels, no explanations, no formatting — just the raw transcript.`,
+                  text: `Transcribe this audio exactly as spoken in ${language} with speaker diarization. Format the output with speaker labels like:\n\nSpeaker 1: [what speaker 1 said]\nSpeaker 2: [what speaker 2 said]\n\nIf there is only one speaker, still label them as "Speaker 1:". Output ONLY the diarized transcript, nothing else. No explanations, no headers, no extra formatting.`,
                 },
               ],
             },

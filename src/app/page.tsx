@@ -44,7 +44,12 @@ export default function Home() {
       setReferenceTranscript(transcript);
       setGroundTruthStatus("done");
 
-      runBenchmark(file, transcript, language);
+      // Strip speaker labels for WER comparison
+      const plainTranscript = transcript
+        .replace(/^Speaker \d+:\s*/gm, "")
+        .replace(/\n+/g, " ")
+        .trim();
+      runBenchmark(file, plainTranscript, language);
     } catch (err) {
       setGroundTruthStatus("error");
       setGroundTruthError(
