@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# STT Benchmark
 
-## Getting Started
+Compare 7 Speech-to-Text providers side by side. Upload audio, select a language, and see who wins.
 
-First, run the development server:
+## Providers
+
+- Deepgram (Nova-2)
+- OpenAI Whisper
+- Google Cloud STT
+- Soniox
+- Speechmatics
+- ElevenLabs (Scribe v2)
+- Sarvam AI
+
+## Features
+
+- 14 language support (English, Hindi, Spanish, French, German, Portuguese, Japanese, Chinese, Korean, Arabic, Italian, Dutch, Russian, Turkish)
+- Auto ground truth generation via Gemini 2.5 Flash (with speaker diarization)
+- Word Error Rate (WER) calculation with word-level diff view
+- Unicode-aware text normalization (works with all scripts)
+- Side-by-side provider comparison ranked by accuracy
+
+## Setup
 
 ```bash
+npm install
+cp .env.local.example .env.local  # add your API keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+DEEPGRAM_API_KEY=
+OPENAI_API_KEY=
+GOOGLE_CLOUD_API_KEY=
+SONIOX_API_KEY=
+SPEECHMATICS_API_KEY=
+ELEVENLABS_API_KEY=
+SARVAM_API_KEY=
+GEMINI_API_KEY=
+```
