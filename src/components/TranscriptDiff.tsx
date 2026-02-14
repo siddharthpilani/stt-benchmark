@@ -14,7 +14,7 @@ interface DiffWord {
 
 function computeDiff(reference: string, hypothesis: string): { refDiff: DiffWord[]; hypDiff: DiffWord[] } {
   const normalize = (t: string) =>
-    t.toLowerCase().replace(/[^\w\s]/g, "").replace(/\s+/g, " ").trim().split(" ").filter((w) => w.length > 0);
+    t.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").replace(/\s+/g, " ").trim().split(" ").filter((w) => w.length > 0);
 
   const ref = normalize(reference);
   const hyp = normalize(hypothesis);
