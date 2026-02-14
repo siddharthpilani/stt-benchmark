@@ -1,6 +1,7 @@
 export async function transcribeWithElevenLabs(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en"
 ): Promise<string> {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) throw new Error("ELEVENLABS_API_KEY is not configured");
@@ -11,6 +12,7 @@ export async function transcribeWithElevenLabs(
   const formData = new FormData();
   formData.append("file", file);
   formData.append("model_id", "scribe_v2");
+  formData.append("language_code", language);
 
   const res = await fetch("https://api.elevenlabs.io/v1/speech-to-text", {
     method: "POST",

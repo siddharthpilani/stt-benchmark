@@ -14,7 +14,7 @@ export function useBenchmark() {
   const [isRunning, setIsRunning] = useState(false);
 
   const runBenchmark = useCallback(
-    async (file: File, referenceTranscript: string) => {
+    async (file: File, referenceTranscript: string, language: string) => {
       setIsRunning(true);
 
       // Initialize all providers as pending
@@ -40,6 +40,7 @@ export function useBenchmark() {
           const formData = new FormData();
           formData.append("file", file);
           formData.append("provider", provider);
+          formData.append("language", language);
 
           const res = await fetch("/api/transcribe", {
             method: "POST",

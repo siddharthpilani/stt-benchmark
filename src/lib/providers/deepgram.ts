@@ -1,12 +1,13 @@
 export async function transcribeWithDeepgram(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en"
 ): Promise<string> {
   const apiKey = process.env.DEEPGRAM_API_KEY;
   if (!apiKey) throw new Error("DEEPGRAM_API_KEY is not configured");
 
   const res = await fetch(
-    "https://api.deepgram.com/v1/listen?model=nova-2&smart_format=false",
+    `https://api.deepgram.com/v1/listen?model=nova-2&smart_format=false&language=${language}`,
     {
       method: "POST",
       headers: {

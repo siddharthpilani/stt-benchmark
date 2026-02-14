@@ -66,7 +66,7 @@ function computeDiff(reference: string, hypothesis: string): { refDiff: DiffWord
 }
 
 const colorMap: Record<DiffWord["type"], string> = {
-  match: "text-zinc-300",
+  match: "text-gray-800",
   substitution: "text-yellow-400 bg-yellow-400/10",
   insertion: "text-green-400 bg-green-400/10",
   deletion: "text-red-400 bg-red-400/10 line-through",
@@ -82,14 +82,14 @@ export default function TranscriptDiff({
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-zinc-900 border border-zinc-700 rounded-xl max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-zinc-700">
-          <h3 className="text-lg font-semibold text-zinc-200">
+      <div className="bg-white border border-gray-200 rounded-xl max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col shadow-xl">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
             Transcript Diff — {providerName}
           </h3>
           <button
             onClick={onClose}
-            className="text-zinc-500 hover:text-zinc-300 text-2xl leading-none"
+            className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
           >
             &times;
           </button>
@@ -97,7 +97,7 @@ export default function TranscriptDiff({
 
         <div className="overflow-y-auto p-4 space-y-6">
           {/* Legend */}
-          <div className="flex gap-4 text-xs text-zinc-500">
+          <div className="flex gap-4 text-xs text-gray-500">
             <span className="flex items-center gap-1">
               <span className="w-3 h-3 rounded bg-yellow-400/20 inline-block" /> Substitution
             </span>
@@ -111,8 +111,8 @@ export default function TranscriptDiff({
 
           {/* Reference */}
           <div>
-            <h4 className="text-sm font-medium text-zinc-500 mb-2">Reference</h4>
-            <div className="bg-zinc-800/50 rounded-lg p-3 leading-relaxed">
+            <h4 className="text-sm font-medium text-gray-500 mb-2">Reference</h4>
+            <div className="bg-gray-50 rounded-lg p-3 leading-relaxed">
               {refDiff.map((w, i) => (
                 <span key={i} className={`${colorMap[w.type]} px-0.5 rounded`}>
                   {w.word}{" "}
@@ -123,10 +123,10 @@ export default function TranscriptDiff({
 
           {/* Hypothesis */}
           <div>
-            <h4 className="text-sm font-medium text-zinc-500 mb-2">
+            <h4 className="text-sm font-medium text-gray-500 mb-2">
               {providerName} Output
             </h4>
-            <div className="bg-zinc-800/50 rounded-lg p-3 leading-relaxed">
+            <div className="bg-gray-50 rounded-lg p-3 leading-relaxed">
               {hypDiff.map((w, i) => (
                 <span key={i} className={`${colorMap[w.type]} px-0.5 rounded`}>
                   {w.word}{" "}

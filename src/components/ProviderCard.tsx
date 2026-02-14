@@ -19,15 +19,15 @@ export default function ProviderCard({ result }: ProviderCardProps) {
             ? "border-red-500/30 bg-red-500/5"
             : result.status === "running"
               ? "border-blue-500/30 bg-blue-500/5"
-              : "border-zinc-700/50 bg-zinc-800/50"
+              : "border-gray-200 bg-gray-50"
       }`}
     >
       <div className="flex items-center justify-between">
-        <span className="font-medium text-zinc-200">{displayName}</span>
+        <span className="font-medium text-gray-900">{displayName}</span>
         <StatusBadge status={result.status} />
       </div>
       {result.status === "done" && result.wer && (
-        <div className="mt-2 text-sm text-zinc-400">
+        <div className="mt-2 text-sm text-gray-500">
           WER: {(result.wer.wer * 100).toFixed(1)}% | {result.durationMs}ms
         </div>
       )}
@@ -44,7 +44,7 @@ function StatusBadge({ status }: { status: BenchmarkResult["status"] }) {
   switch (status) {
     case "pending":
       return (
-        <span className="text-xs px-2 py-1 rounded-full bg-zinc-700 text-zinc-400">
+        <span className="text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-500">
           Pending
         </span>
       );

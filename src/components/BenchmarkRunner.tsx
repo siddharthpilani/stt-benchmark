@@ -16,14 +16,14 @@ export default function BenchmarkRunner({ results }: BenchmarkRunnerProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-zinc-200">Progress</h2>
-        <span className="text-sm text-zinc-500">
+        <h2 className="text-lg font-semibold text-gray-900">Progress</h2>
+        <span className="text-sm text-gray-500">
           {done}/{total} completed
         </span>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-zinc-800 rounded-full h-2">
+      <div className="w-full bg-gray-200 rounded-full h-2">
         <div
           className="bg-blue-500 h-2 rounded-full transition-all duration-300"
           style={{ width: `${(done / total) * 100}%` }}

@@ -1,6 +1,7 @@
 export async function transcribeWithSarvam(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en-IN"
 ): Promise<string> {
   const apiKey = process.env.SARVAM_API_KEY;
   if (!apiKey) throw new Error("SARVAM_API_KEY is not configured");
@@ -11,7 +12,7 @@ export async function transcribeWithSarvam(
   const formData = new FormData();
   formData.append("file", file);
   formData.append("model", "saaras:v3");
-  formData.append("language_code", "en-IN");
+  formData.append("language_code", language);
 
   const res = await fetch("https://api.sarvam.ai/speech-to-text", {
     method: "POST",

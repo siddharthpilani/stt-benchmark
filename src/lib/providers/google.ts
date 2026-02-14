@@ -1,6 +1,7 @@
 export async function transcribeWithGoogle(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en-US"
 ): Promise<string> {
   const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
   if (!apiKey) throw new Error("GOOGLE_CLOUD_API_KEY is not configured");
@@ -17,7 +18,7 @@ export async function transcribeWithGoogle(
       body: JSON.stringify({
         config: {
           encoding,
-          languageCode: "en-US",
+          languageCode: language,
           model: "latest_long",
           enableAutomaticPunctuation: false,
         },

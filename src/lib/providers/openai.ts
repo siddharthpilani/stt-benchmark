@@ -1,6 +1,7 @@
 export async function transcribeWithOpenAI(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en"
 ): Promise<string> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
@@ -13,6 +14,7 @@ export async function transcribeWithOpenAI(
   formData.append("file", file);
   formData.append("model", "whisper-1");
   formData.append("response_format", "text");
+  formData.append("language", language);
 
   const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
     method: "POST",

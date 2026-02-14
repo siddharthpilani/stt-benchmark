@@ -1,6 +1,7 @@
 export async function transcribeWithSoniox(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en"
 ): Promise<string> {
   const apiKey = process.env.SONIOX_API_KEY;
   if (!apiKey) throw new Error("SONIOX_API_KEY is not configured");
@@ -40,6 +41,7 @@ export async function transcribeWithSoniox(
       body: JSON.stringify({
         file_id: fileId,
         model: "stt-async-v4",
+        language_hints: [language],
       }),
     }
   );
@@ -70,9 +72,20 @@ export async function transcribeWithSoniox(
     const statusData = await statusRes.json();
 
     if (statusData.status === "completed") {
-      return statusData.text ?? statusData.result?.text ?? "";
+      const transcriptRes = await fetch(
+        `https://api.soniox.com/v1/transcriptions/${transcriptionId}/transcript`,
+        {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        }
+      );
+      if (!transcriptRes.ok) {
+        const text = await transcriptRes.text();
+        throw new Error(`Soniox transcript fetch error ${transcriptRes.status}: ${text}`);
+      }
+      const transcriptData = await transcriptRes.json();
+      return transcriptData.text ?? "";
     }
-    if (statusData.status === "error" || statusData.status === "failed") {
+    if (statusData.status === "error") {
       throw new Error(`Soniox transcription failed: ${statusData.error}`);
     }
   }

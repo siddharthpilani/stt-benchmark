@@ -9,7 +9,8 @@ import { transcribeWithSarvam } from "./sarvam";
 
 type TranscribeFn = (
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string
 ) => Promise<string>;
 
 const providerRegistry: Record<ProviderName, TranscribeFn> = {
@@ -25,9 +26,10 @@ const providerRegistry: Record<ProviderName, TranscribeFn> = {
 export async function transcribeWithProvider(
   provider: ProviderName,
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string
 ): Promise<string> {
   const fn = providerRegistry[provider];
   if (!fn) throw new Error(`Unknown provider: ${provider}`);
-  return fn(audioBuffer, contentType);
+  return fn(audioBuffer, contentType, language);
 }

@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { transcribeWithProvider } from "@/lib/providers";
-import { ProviderName, PROVIDERS } from "@/lib/types";
+import { ProviderName, PROVIDERS, LANGUAGES } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     const provider = formData.get("provider") as string | null;
+    const languageCode = (formData.get("language") as string) || "en";
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -18,6 +19,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const lang = LANGUAGES.find((l) => l.code === languageCode) ?? LANGUAGES[0];
+    const providerLang = lang[provider as ProviderName];
+
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const contentType = file.type || "audio/mpeg";
@@ -26,7 +30,8 @@ export async function POST(req: NextRequest) {
     const transcript = await transcribeWithProvider(
       provider as ProviderName,
       buffer,
-      contentType
+      contentType,
+      providerLang
     );
     const durationMs = Date.now() - start;
 
@@ -36,4 +41,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ transcript: "", durationMs: 0, error: message });
   }
 }
-

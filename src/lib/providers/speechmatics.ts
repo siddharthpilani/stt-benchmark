@@ -1,6 +1,7 @@
 export async function transcribeWithSpeechmatics(
   audioBuffer: Buffer,
-  contentType: string
+  contentType: string,
+  language: string = "en"
 ): Promise<string> {
   const apiKey = process.env.SPEECHMATICS_API_KEY;
   if (!apiKey) throw new Error("SPEECHMATICS_API_KEY is not configured");
@@ -15,7 +16,7 @@ export async function transcribeWithSpeechmatics(
     JSON.stringify({
       type: "transcription",
       transcription_config: {
-        language: "en",
+        language: language,
         operating_point: "enhanced",
       },
     })

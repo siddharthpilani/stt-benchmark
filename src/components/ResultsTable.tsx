@@ -26,12 +26,12 @@ export default function ResultsTable({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-zinc-200">Results</h2>
+      <h2 className="text-lg font-semibold text-gray-900">Results</h2>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-zinc-700 text-zinc-400">
+            <tr className="border-b border-gray-200 text-gray-500">
               <th className="text-left py-3 px-4 font-medium">Rank</th>
               <th className="text-left py-3 px-4 font-medium">Provider</th>
               <th className="text-left py-3 px-4 font-medium">WER</th>
@@ -51,24 +51,24 @@ export default function ResultsTable({
               return (
                 <tr
                   key={r.provider}
-                  className="border-b border-zinc-800 hover:bg-zinc-800/50 transition-colors"
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                 >
                   <td className="py-3 px-4">
                     <span
                       className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold ${
                         i === 0
-                          ? "bg-yellow-500/20 text-yellow-400"
+                          ? "bg-yellow-100 text-yellow-700"
                           : i === 1
-                            ? "bg-zinc-400/20 text-zinc-300"
+                            ? "bg-gray-200 text-gray-600"
                             : i === 2
-                              ? "bg-orange-500/20 text-orange-400"
-                              : "bg-zinc-700/50 text-zinc-500"
+                              ? "bg-orange-100 text-orange-700"
+                              : "bg-gray-100 text-gray-500"
                       }`}
                     >
                       {i + 1}
                     </span>
                   </td>
-                  <td className="py-3 px-4 font-medium text-zinc-200">
+                  <td className="py-3 px-4 font-medium text-gray-900">
                     {displayName}
                   </td>
                   <td className="py-3 px-4">
@@ -86,7 +86,7 @@ export default function ResultsTable({
                   </td>
                   <td className="py-3 px-4 w-48">
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-zinc-800 rounded-full h-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-2">
                         <div
                           className={`h-2 rounded-full transition-all ${
                             accuracy > 95
@@ -98,12 +98,12 @@ export default function ResultsTable({
                           style={{ width: `${Math.min(100, accuracy)}%` }}
                         />
                       </div>
-                      <span className="text-xs text-zinc-500 w-12 text-right">
+                      <span className="text-xs text-gray-500 w-12 text-right">
                         {accuracy.toFixed(0)}%
                       </span>
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-zinc-400 font-mono">
+                  <td className="py-3 px-4 text-gray-500 font-mono">
                     {r.durationMs < 1000
                       ? `${r.durationMs}ms`
                       : `${(r.durationMs / 1000).toFixed(1)}s`}
@@ -126,7 +126,7 @@ export default function ResultsTable({
       {/* Error providers */}
       {results.filter((r) => r.status === "error").length > 0 && (
         <div className="mt-4">
-          <h3 className="text-sm font-medium text-zinc-500 mb-2">
+          <h3 className="text-sm font-medium text-gray-500 mb-2">
             Failed Providers
           </h3>
           <div className="space-y-2">
@@ -142,7 +142,7 @@ export default function ResultsTable({
                       r.provider}
                     :
                   </span>{" "}
-                  <span className="text-red-300/70">{r.error}</span>
+                  <span className="text-red-600/70">{r.error}</span>
                 </div>
               ))}
           </div>
