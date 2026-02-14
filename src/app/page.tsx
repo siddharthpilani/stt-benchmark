@@ -10,6 +10,7 @@ import { LANGUAGES } from "@/lib/types";
 export default function Home() {
   const { results, isRunning, runBenchmark } = useBenchmark();
   const [referenceTranscript, setReferenceTranscript] = useState("");
+  const [diarizedTranscript, setDiarizedTranscript] = useState("");
   const [groundTruthStatus, setGroundTruthStatus] = useState<
     "idle" | "loading" | "done" | "error"
   >("idle");
@@ -19,6 +20,7 @@ export default function Home() {
     setGroundTruthStatus("loading");
     setGroundTruthError("");
     setReferenceTranscript("");
+    setDiarizedTranscript("");
 
     try {
       const langLabel =
@@ -41,14 +43,15 @@ export default function Home() {
       }
 
       const transcript = data.transcript || "";
-      setReferenceTranscript(transcript);
+      setDiarizedTranscript(transcript);
       setGroundTruthStatus("done");
 
-      // Strip speaker labels for WER comparison
+      // Strip speaker labels for WER comparison and diff view
       const plainTranscript = transcript
         .replace(/^Speaker \d+:\s*/gm, "")
         .replace(/\n+/g, " ")
         .trim();
+      setReferenceTranscript(plainTranscript);
       runBenchmark(file, plainTranscript, language);
     } catch (err) {
       setGroundTruthStatus("error");
@@ -116,15 +119,15 @@ export default function Home() {
         </section>
       )}
 
-      {groundTruthStatus === "done" && referenceTranscript && (
+      {groundTruthStatus === "done" && diarizedTranscript && (
         <section className="mb-8">
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
             <h3 className="text-sm font-medium text-gray-500 mb-2">
               Ground Truth (via Gemini 2.5 Flash)
             </h3>
-            <p className="text-gray-800 text-sm leading-relaxed">
-              {referenceTranscript}
-            </p>
+            <pre className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap font-sans">
+              {diarizedTranscript}
+            </pre>
           </div>
         </section>
       )}
